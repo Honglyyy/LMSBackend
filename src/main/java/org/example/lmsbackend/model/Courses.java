@@ -1,4 +1,4 @@
-package org.example.lmsbackend.models;
+package org.example.lmsbackend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -47,19 +47,15 @@ public class Courses {
     private List<Categories> categories;
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
-    @JsonManagedReference
     private List<Sections> sections;
 
     @OneToMany(mappedBy = "course")
-    @JsonIgnore
     private List<CourseReviews> reviews;
 
     @OneToMany(mappedBy = "course")
-    @JsonIgnore
     private List<Enrollments> enrollments;
 
     @ManyToOne
     @JoinColumn(name = "instructor_id")
-    @JsonIgnore
     private Users instructorId;
 }

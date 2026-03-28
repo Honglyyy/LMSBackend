@@ -1,4 +1,4 @@
-package org.example.lmsbackend.models;
+package org.example.lmsbackend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -7,7 +7,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Component
 @Entity
@@ -33,12 +32,10 @@ public class CourseReviews {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonIgnore
     private Users user;
 
     @ManyToOne
     @JoinColumn(name = "course_id")
-    @JsonIgnore
     private Courses course;
 
 }

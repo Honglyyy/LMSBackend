@@ -1,0 +1,61 @@
+package org.example.lmsbackend.service;
+
+import org.example.lmsbackend.dto.UserCreateDTO;
+import org.example.lmsbackend.dto.UserResponseDTO;
+import org.example.lmsbackend.mapper.UserMapper;
+import org.example.lmsbackend.model.Roles;
+import org.example.lmsbackend.model.Users;
+import org.example.lmsbackend.repository.RolesRepository;
+import org.example.lmsbackend.repository.UserRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class UserService {
+
+    private final UserRepository userRepository;
+    private final UserMapper userMapper;
+    private final RolesRepository rolesRepository;
+
+    public UserService(UserRepository userRepository, UserMapper userMapper, RolesRepository rolesRepository) {
+        this.userMapper = userMapper;
+        this.rolesRepository = rolesRepository;
+        this.userRepository = userRepository;
+
+    }
+
+    public List<UserResponseDTO> getAllUsers() {
+        return userRepository.findAll()
+                .stream()
+                .map(userMapper::toDTO)
+                .toList();
+    }
+
+    public UserResponseDTO getUserById(Long id){
+        return userMapper.toDTO(userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User with id " + id + " not found")));
+    }
+
+    public UserResponseDTO createUser(UserCreateDTO dto){
+        Roles role = rolesRepository.findById(dto.roleId())
+                .orElseThrow(() -> new RuntimeException("Role with id " + dto.roleId() + " not found"));
+
+        Users user = userMapper.toEntity(dto,role);
+
+        return userMapper.toDTO(userRepository.save(user));
+    }
+
+    public void deleteUser(Long id){
+        userRepository.deleteById(id);
+    }
+
+    public UserResponseDTO updateUser(Long id, UserCreateDTO dto){
+        Users user = userRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("User id " + id +" not found!!"));
+
+        userMapper.updateEntity(user,dto);
+         return userMapper.toDTO(userRepository.save(user));
+    }
+
+}

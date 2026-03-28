@@ -1,4 +1,4 @@
-package org.example.lmsbackend.models;
+package org.example.lmsbackend.model;
 
 import jakarta.persistence.*;
 import lombok.*;

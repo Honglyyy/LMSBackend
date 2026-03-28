@@ -1,4 +1,4 @@
-package org.example.lmsbackend.models;
+package org.example.lmsbackend.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -34,11 +34,9 @@ public class Sections {
 
     @ManyToOne
     @JoinColumn(name = "course_id")
-    @JsonBackReference
     private Courses course;
 
     @OneToMany(mappedBy = "sections", cascade = CascadeType.ALL)
-    @JsonManagedReference
     private List<Lessons> lessons;
 }
 

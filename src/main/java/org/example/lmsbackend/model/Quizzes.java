@@ -1,13 +1,11 @@
-package org.example.lmsbackend.models;
+package org.example.lmsbackend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
@@ -35,10 +33,8 @@ public class Quizzes {
     private Lessons lesson;
 
     @OneToMany(mappedBy = "quiz")
-    @JsonManagedReference
     private List<Questions> questions;
 
     @OneToMany(mappedBy = "quiz")
-    @JsonIgnore
     private List<QuizAttempts> quizAttempts;
 }

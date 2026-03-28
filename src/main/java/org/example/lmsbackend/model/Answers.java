@@ -1,13 +1,9 @@
-package org.example.lmsbackend.models;
+package org.example.lmsbackend.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.stereotype.Component;
-
-import java.time.LocalDateTime;
-import java.util.List;
 
 @Component
 @Entity
@@ -30,6 +26,5 @@ public class Answers {
 
     @ManyToOne
     @JoinColumn(name = "question_id")
-    @JsonBackReference
     private Questions question;
 }

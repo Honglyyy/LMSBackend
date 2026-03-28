@@ -1,4 +1,4 @@
-package org.example.lmsbackend.models;
+package org.example.lmsbackend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -17,29 +17,17 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 
-public class Users {
+public class Categories {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
-    private long userId;
+    @Column(name = "category_id")
+    private long categoryId;
 
-    private String username ;
-
-    private String password;
+    private String category;
 
     @CreationTimestamp
     private LocalDateTime createAt;
 
-    @OneToOne
-    @JoinColumn(name = "role_id")
-    private Roles role;
-
-    @OneToMany(mappedBy = "user")
-    @JsonIgnore
-    private List<CourseReviews> review;
-
-    @OneToMany(mappedBy = "user")
-    @JsonIgnore
-    private List<Enrollments> enrollments;
-
+    @ManyToMany(mappedBy = "categories")
+    private List<Courses> course;
 }

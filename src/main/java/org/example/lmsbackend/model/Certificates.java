@@ -1,4 +1,4 @@
-package org.example.lmsbackend.models;
+package org.example.lmsbackend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -7,7 +7,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Component
 @Entity
@@ -17,25 +16,20 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 
-public class LessonProgress {
+public class Certificates {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "progress_id")
-    private long progressId;
+    @Column(name = "certificate_id")
+    private long certificateId;
 
-    @Column(name = "is_completed")
-    private boolean isCompleted;
+    @Column(name = "certificate_dir")
+    private String certificateDir;
 
-    @Column(name = "completed_at")
-    private LocalDateTime completedAt;
+    @CreationTimestamp
+    @Column(name = "issued_at")
+    private LocalDateTime issuedAt;
 
     @ManyToOne
     @JoinColumn(name = "enrollment_id")
-    @JsonIgnore
     private Enrollments enrollment;
-
-    @ManyToOne
-    @JoinColumn(name = "lesson_id")
-    @JsonIgnore
-    private Lessons lesson;
 }

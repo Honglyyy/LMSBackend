@@ -1,9 +1,8 @@
-package org.example.lmsbackend.models;
+package org.example.lmsbackend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -35,23 +34,18 @@ public class Enrollments {
     private boolean isPaid;
 
     @ManyToOne
-    @JsonIgnore
     private Users user;
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "course_id")
     private Courses course;
 
     @OneToMany(mappedBy = "enrollment")
-    @JsonIgnore
     private List<QuizAttempts> quizAttempts;
 
     @OneToMany(mappedBy = "enrollment")
-    @JsonIgnore
     private List<LessonProgress> lessonProgress;
 
     @OneToMany(mappedBy = "enrollment")
-    @JsonIgnore
     private List<Certificates> certificates;
 }

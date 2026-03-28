@@ -1,4 +1,4 @@
-package org.example.lmsbackend.models;
+package org.example.lmsbackend.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -35,10 +35,8 @@ public class Lessons {
 
     @ManyToOne
     @JoinColumn(name = "section_id")
-    @JsonBackReference
     private Sections sections;
 
     @OneToMany(mappedBy = "lesson")
-    @JsonIgnore
     private List<LessonProgress> lessonProgress;
 }

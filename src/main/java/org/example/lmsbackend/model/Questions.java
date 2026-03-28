@@ -1,13 +1,11 @@
-package org.example.lmsbackend.models;
+package org.example.lmsbackend.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
@@ -29,10 +27,8 @@ public class Questions {
 
     @ManyToOne
     @JoinColumn(name = "quiz_id")
-    @JsonBackReference
     private Quizzes quiz;
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
-    @JsonManagedReference
     private List<Answers> answers;
 }
