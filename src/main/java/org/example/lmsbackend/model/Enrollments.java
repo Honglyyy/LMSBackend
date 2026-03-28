@@ -20,18 +20,18 @@ public class Enrollments {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "enrollment_id")
-    private long enrollmentId;
+    private Long enrollmentId;
 
     @Column(name = "enrolled_at")
     private LocalDateTime enrolledAt;
 
-    private boolean status;
+    private Boolean status;
 
     @Column(name = "completed_at")
     private LocalDateTime completedAt;
 
     @Column(name = "is_paid")
-    private boolean isPaid;
+    private Boolean isPaid;
 
     @ManyToOne
     private Users user;

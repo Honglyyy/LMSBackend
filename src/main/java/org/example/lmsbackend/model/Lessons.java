@@ -22,7 +22,7 @@ public class Lessons {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "lesson_id")
-    private long lessonId;
+    private Long lessonId;
 
     @Column(name = "lesson_title")
     private String title;

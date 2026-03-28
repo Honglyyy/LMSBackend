@@ -17,12 +17,12 @@ public class Answers {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "answer_id")
-    private long answerId;
+    private Long answerId;
 
     @Column(name = "answer_text")
     private String answerText;
 
-    private boolean isCorrect;
+    private Boolean isCorrect;
 
     @ManyToOne
     @JoinColumn(name = "question_id")

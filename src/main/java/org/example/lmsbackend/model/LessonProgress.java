@@ -19,10 +19,10 @@ public class LessonProgress {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "progress_id")
-    private long progressId;
+    private Long progressId;
 
     @Column(name = "is_completed")
-    private boolean isCompleted;
+    private Boolean isCompleted;
 
     @Column(name = "completed_at")
     private LocalDateTime completedAt;

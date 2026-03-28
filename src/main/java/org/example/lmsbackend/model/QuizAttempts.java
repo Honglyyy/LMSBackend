@@ -20,9 +20,9 @@ public class QuizAttempts {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "attempt_id")
-    private long attemptId;
+    private Long attemptId;
 
-    private double score;
+    private Double score;
 
     @Column(name = "attempted_at")
     @CreationTimestamp

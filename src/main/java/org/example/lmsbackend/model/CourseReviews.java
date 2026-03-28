@@ -19,13 +19,13 @@ public class CourseReviews {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "review_id")
-    private long reviewId;
+    private Long reviewId;
 
     @Column(name = "review_text")
     private String reviewText;
 
     @Column(nullable = false)
-    private double rating;
+    private Double rating;
 
     @CreationTimestamp
     private LocalDateTime createdAt;

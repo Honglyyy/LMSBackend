@@ -21,7 +21,7 @@ public class Categories {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id")
-    private long categoryId;
+    private Long categoryId;
 
     private String category;
 
@@ -29,5 +29,6 @@ public class Categories {
     private LocalDateTime createAt;
 
     @ManyToMany(mappedBy = "categories")
+    @JsonIgnore
     private List<Courses> course;
 }

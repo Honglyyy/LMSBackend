@@ -21,7 +21,7 @@ public class Sections {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "section_id")
-    private long sectionId;
+    private Long sectionId;
 
     @Column(name = "section_title")
     private String title;

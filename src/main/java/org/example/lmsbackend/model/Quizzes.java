@@ -20,13 +20,13 @@ public class Quizzes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "quiz_id")
-    private long quizId;
+    private Long quizId;
 
     @Column(name = "quiz_title")
     private String quizTitle;
 
     @Column(name = "total_point")
-    private double totalPoint;
+    private Double totalPoint;
 
     @OneToOne
     @JoinColumn(name = "lesson_id")

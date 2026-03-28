@@ -20,7 +20,7 @@ public class Certificates {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "certificate_id")
-    private long certificateId;
+    private Long certificateId;
 
     @Column(name = "certificate_dir")
     private String certificateDir;

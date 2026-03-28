@@ -21,7 +21,7 @@ public class Courses {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "course_id")
-    private long courseId;
+    private Long courseId;
 
     private String title;
 
@@ -33,7 +33,7 @@ public class Courses {
     @Column(name = "cover_dir")
     private String coverDir;
 
-    private double price;
+    private Double price;
 
     @CreationTimestamp
     private LocalDateTime createAt;
