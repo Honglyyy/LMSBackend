@@ -27,12 +27,12 @@ public class UserController {
 
     @GetMapping("/api/users/{id}")
     public ResponseEntity<UserResponseDTO> getUser(@PathVariable Long id){
-        return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
+        return new ResponseEntity<>(userService.getUser(id), HttpStatus.OK);
     }
 
     @PostMapping("api/users")
     public ResponseEntity<UserResponseDTO> createUser(@RequestBody UserCreateDTO dto){
-        return new ResponseEntity<>(userService.createUser(dto),HttpStatus.CREATED);
+        return new ResponseEntity<>(userService.addUser(dto),HttpStatus.CREATED);
     }
 
     @DeleteMapping("/api/users/{id}")

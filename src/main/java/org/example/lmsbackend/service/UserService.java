@@ -32,12 +32,12 @@ public class UserService {
                 .toList();
     }
 
-    public UserResponseDTO getUserById(Long id){
+    public UserResponseDTO getUser(Long id){
         return userMapper.toDTO(userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User with id " + id + " not found")));
     }
 
-    public UserResponseDTO createUser(UserCreateDTO dto){
+    public UserResponseDTO addUser(UserCreateDTO dto){
         Roles role = rolesRepository.findById(dto.roleId())
                 .orElseThrow(() -> new RuntimeException("Role with id " + dto.roleId() + " not found"));
 
