@@ -67,6 +67,8 @@ public class CourseService {
         existingCourse.setTitle(dto.title());
         existingCourse.setDescription(dto.description());
         existingCourse.setPrice(dto.price());
+        existingCourse.setOverallDuration(dto.overallDuration());
+        existingCourse.setCoverDir(dto.coverDir());
         existingCourse.setInstructorId(instructor);
         existingCourse.setCategories(categories);
 

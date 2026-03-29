@@ -7,6 +7,8 @@ public record CourseResponseDTO(
         String title,
         String description,
         double price,
+        String overallDuration,
+        String coverDir,
         String instructor,
         List<String> categories
 ) {

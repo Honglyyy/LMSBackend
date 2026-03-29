@@ -22,6 +22,8 @@ public class CourseMapper {
         course.setTitle(dto.title());
         course.setDescription(dto.description());
         course.setPrice(dto.price());
+        course.setOverallDuration(dto.overallDuration());
+        course.setCoverDir(dto.coverDir());
         course.setInstructorId(instructor);
         course.setCategories(categories);
 
@@ -39,6 +41,8 @@ public class CourseMapper {
                 course.getTitle(),
                 course.getDescription(),
                 course.getPrice(),
+                course.getOverallDuration(),
+                course.getCoverDir(),
                 course.getInstructorId().getUsername(),
                 coursesName
         );
