@@ -1,8 +1,11 @@
 package org.example.lmsbackend.controller;
 
 import org.example.lmsbackend.dto.CourseCreateDTO;
+import org.example.lmsbackend.dto.CourseDetailDTO;
 import org.example.lmsbackend.dto.CourseResponseDTO;
+import org.example.lmsbackend.dto.SectionDTO;
 import org.example.lmsbackend.service.CourseService;
+import org.example.lmsbackend.service.SectionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,8 +16,10 @@ import java.util.List;
 public class CourseController {
 
     private final CourseService courseService;
+    private final SectionService sectionService;
 
-    public CourseController(CourseService courseService) {
+    public CourseController(CourseService courseService, SectionService sectionService) {
+        this.sectionService = sectionService;
         this.courseService = courseService;
     }
 
@@ -45,5 +50,12 @@ public class CourseController {
             @RequestBody CourseCreateDTO dto
     ) {
         return ResponseEntity.ok(courseService.updateCourse(id, dto));
+    }
+
+    @GetMapping("/api/courses/{id}/sections")
+    public ResponseEntity<CourseDetailDTO> getSectionByCourseId(
+            @PathVariable Long id
+    ){
+        return new ResponseEntity<>(sectionService.getSectionByCourseId(id), HttpStatus.OK);
     }
 }

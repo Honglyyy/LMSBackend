@@ -1,10 +1,8 @@
 package org.example.lmsbackend.dto;
 
-import org.example.lmsbackend.model.Sections;
-
 import java.util.List;
 
-public record CourseResponseDTO(
+public record CourseDetailDTO(
         Long courseId,
         String title,
         String description,
@@ -12,6 +10,7 @@ public record CourseResponseDTO(
         String overallDuration,
         String coverDir,
         String instructor,
-        List<String> categories
+        List<String> categories,
+        List<SectionDTO> sections
 ) {
 }

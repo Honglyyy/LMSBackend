@@ -1,6 +1,7 @@
 package org.example.lmsbackend.mapper;
 
 import org.example.lmsbackend.dto.CourseCreateDTO;
+import org.example.lmsbackend.dto.CourseDetailDTO;
 import org.example.lmsbackend.dto.CourseResponseDTO;
 import org.example.lmsbackend.model.Categories;
 import org.example.lmsbackend.model.Courses;
@@ -12,6 +13,7 @@ import java.util.List;
 //Forgot fields of duration and dir
 @Component
 public class CourseMapper {
+
     public Courses toEntity(
             CourseCreateDTO dto,
             Users instructor,
@@ -30,7 +32,9 @@ public class CourseMapper {
         return course;
     }
 
-    public CourseResponseDTO toDTO(Courses course){
+    public CourseResponseDTO toDTO(
+            Courses course
+    ){
         List<String> coursesName = course.getCategories()
                 .stream()
                 .map(Categories::getCategory)
