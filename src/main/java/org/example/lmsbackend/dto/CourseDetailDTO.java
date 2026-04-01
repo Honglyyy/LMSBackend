@@ -11,6 +11,6 @@ public record CourseDetailDTO(
         String coverDir,
         String instructor,
         List<String> categories,
-        List<SectionDTO> sections
+        List<SectionDetailDTO> sections
 ) {
 }
