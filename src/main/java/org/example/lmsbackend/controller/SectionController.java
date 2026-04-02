@@ -1,6 +1,7 @@
 package org.example.lmsbackend.controller;
 
 import org.example.lmsbackend.dto.SectionCreateDTO;
+import org.example.lmsbackend.dto.SectionDetailDTO;
 import org.example.lmsbackend.dto.SectionResponseDTO;
 import org.example.lmsbackend.service.SectionService;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,11 @@ public class SectionController {
     @GetMapping("/api/sections")
     public ResponseEntity<List<SectionResponseDTO>> getSections(){
         return new ResponseEntity<>(sectionService.getSections(), HttpStatus.OK);
+    }
+
+    @GetMapping("/api/sections/{id}")
+    public ResponseEntity<SectionDetailDTO> getSection(@PathVariable Long id){
+        return new ResponseEntity<>(sectionService.getSection(id),HttpStatus.OK);
     }
 
     @PostMapping("/api/sections")

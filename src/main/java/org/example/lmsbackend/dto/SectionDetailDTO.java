@@ -6,6 +6,6 @@ public record SectionDetailDTO(
         Long sectionId,
         String title,
         String duration,
-        List<LessonDTO> lessons
+        List<LessonDetailDTO> lessons
 ) {
 }

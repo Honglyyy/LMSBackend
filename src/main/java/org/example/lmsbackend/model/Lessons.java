@@ -39,4 +39,7 @@ public class Lessons {
 
     @OneToMany(mappedBy = "lesson")
     private List<LessonProgress> lessonProgress;
+
+    @OneToOne(mappedBy = "lesson")
+    private Quizzes quiz;
 }

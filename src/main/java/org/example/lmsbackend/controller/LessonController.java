@@ -1,6 +1,7 @@
 package org.example.lmsbackend.controller;
 
 import org.example.lmsbackend.dto.LessonCreateDTO;
+import org.example.lmsbackend.dto.LessonDetailDTO;
 import org.example.lmsbackend.dto.LessonResponseDTO;
 import org.example.lmsbackend.service.LessonService;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,11 @@ public class LessonController {
     @GetMapping("/api/lessons")
     public ResponseEntity<List<LessonResponseDTO>> getLessons(){
         return new ResponseEntity<>(lessonService.getLessons(), HttpStatus.OK);
+    }
+
+    @GetMapping("/api/lessons/{id}")
+    public ResponseEntity<LessonDetailDTO> getLesson(@PathVariable Long id){
+        return new ResponseEntity<>(lessonService.getLesson(id), HttpStatus.OK);
     }
 
     @PostMapping("/api/lessons")
