@@ -1,0 +1,461 @@
+{
+  "_notes": [
+    "Assumed creation order for referenced IDs: categories 1-5, courses 1-5, sections 1-5, lessons 1-5, quizzes 1-5, questions 1-5, enrollments 1-5.",
+    "Use instructorId 5 and 6 because your provided users show those as INSTRUCTOR.",
+    "The current codebase has POST endpoints for categories, courses, sections, lessons, quizzes, and questions.",
+    "The models answers, enrollments, courseReviews, lessonProgress, quizAttempts, and certificates exist as entities but do not currently have controllers/endpoints."
+  ],
+  "apiPosts": {
+    "/api/categories": [
+      {
+        "category": "Web Development"
+      },
+      {
+        "category": "Data Science"
+      },
+      {
+        "category": "Mobile Development"
+      },
+      {
+        "category": "UI/UX Design"
+      },
+      {
+        "category": "DevOps"
+      }
+    ],
+    "/api/courses": [
+      {
+        "title": "Spring Boot API Masterclass",
+        "description": "Build RESTful APIs with Spring Boot, JPA, and MySQL.",
+        "price": 79.99,
+        "overallDuration": "12h 30m",
+        "coverDir": "covers/spring-boot-api.jpg",
+        "instructorId": 5,
+        "categoryId": [1, 5]
+      },
+      {
+        "title": "React Frontend Fundamentals",
+        "description": "Learn React by building modern responsive interfaces.",
+        "price": 69.5,
+        "overallDuration": "10h 15m",
+        "coverDir": "covers/react-fundamentals.jpg",
+        "instructorId": 6,
+        "categoryId": [1, 4]
+      },
+      {
+        "title": "Python for Data Analysis",
+        "description": "Analyze and visualize data using Python, Pandas, and NumPy.",
+        "price": 89.0,
+        "overallDuration": "14h 00m",
+        "coverDir": "covers/python-data-analysis.jpg",
+        "instructorId": 5,
+        "categoryId": [2]
+      },
+      {
+        "title": "Flutter Mobile App Bootcamp",
+        "description": "Create cross-platform mobile apps with Flutter and Dart.",
+        "price": 74.25,
+        "overallDuration": "11h 20m",
+        "coverDir": "covers/flutter-bootcamp.jpg",
+        "instructorId": 6,
+        "categoryId": [3]
+      },
+      {
+        "title": "Docker and CI/CD Essentials",
+        "description": "Containerize apps and automate deployment pipelines.",
+        "price": 59.99,
+        "overallDuration": "8h 45m",
+        "coverDir": "covers/docker-cicd.jpg",
+        "instructorId": 5,
+        "categoryId": [5]
+      }
+    ],
+    "/api/sections": [
+      {
+        "title": "Introduction to Spring Boot",
+        "duration": "2h 00m",
+        "courseId": 1
+      },
+      {
+        "title": "React Core Concepts",
+        "duration": "1h 45m",
+        "courseId": 2
+      },
+      {
+        "title": "Working with Pandas",
+        "duration": "2h 20m",
+        "courseId": 3
+      },
+      {
+        "title": "Building Flutter UI",
+        "duration": "2h 10m",
+        "courseId": 4
+      },
+      {
+        "title": "Containerization Basics",
+        "duration": "1h 35m",
+        "courseId": 5
+      }
+    ],
+    "/api/lessons": [
+      {
+        "title": "Creating Your First Controller",
+        "videoDir": "videos/spring/first-controller.mp4",
+        "sectionId": 1
+      },
+      {
+        "title": "JSX and Components",
+        "videoDir": "videos/react/jsx-components.mp4",
+        "sectionId": 2
+      },
+      {
+        "title": "Cleaning Datasets",
+        "videoDir": "videos/python/cleaning-datasets.mp4",
+        "sectionId": 3
+      },
+      {
+        "title": "Layouts and Widgets",
+        "videoDir": "videos/flutter/layouts-widgets.mp4",
+        "sectionId": 4
+      },
+      {
+        "title": "Docker Images and Containers",
+        "videoDir": "videos/devops/docker-images-containers.mp4",
+        "sectionId": 5
+      }
+    ],
+    "/api/quizzes": [
+      {
+        "title": "Spring Boot Basics Quiz",
+        "totalPoints": 20,
+        "lessonId": 1
+      },
+      {
+        "title": "React Components Quiz",
+        "totalPoints": 15,
+        "lessonId": 2
+      },
+      {
+        "title": "Pandas Fundamentals Quiz",
+        "totalPoints": 25,
+        "lessonId": 3
+      },
+      {
+        "title": "Flutter Widgets Quiz",
+        "totalPoints": 18,
+        "lessonId": 4
+      },
+      {
+        "title": "Docker Basics Quiz",
+        "totalPoints": 20,
+        "lessonId": 5
+      }
+    ],
+    "/api/questions": [
+      {
+        "questionText": "Which annotation is commonly used to map HTTP GET requests in Spring Boot?",
+        "quizId": 1
+      },
+      {
+        "questionText": "What is the main purpose of a React component?",
+        "quizId": 2
+      },
+      {
+        "questionText": "Which Pandas method is commonly used to inspect the first rows of a dataset?",
+        "quizId": 3
+      },
+      {
+        "questionText": "Which widget is commonly used to arrange children vertically in Flutter?",
+        "quizId": 4
+      },
+      {
+        "questionText": "What command is used to build a Docker image from a Dockerfile?",
+        "quizId": 5
+      }
+    ]
+  },
+  "entityOnlySamples": {
+    "Answers": [
+      {
+        "answerText": "@GetMapping",
+        "isCorrect": true,
+        "question": {
+          "questionId": 1
+        }
+      },
+      {
+        "answerText": "useState",
+        "isCorrect": false,
+        "question": {
+          "questionId": 2
+        }
+      },
+      {
+        "answerText": "head()",
+        "isCorrect": true,
+        "question": {
+          "questionId": 3
+        }
+      },
+      {
+        "answerText": "Column",
+        "isCorrect": true,
+        "question": {
+          "questionId": 4
+        }
+      },
+      {
+        "answerText": "docker build",
+        "isCorrect": true,
+        "question": {
+          "questionId": 5
+        }
+      }
+    ],
+    "Enrollments": [
+      {
+        "enrolledAt": "2026-04-06T09:00:00",
+        "status": true,
+        "completedAt": null,
+        "isPaid": true,
+        "user": {
+          "userId": 3
+        },
+        "course": {
+          "courseId": 1
+        }
+      },
+      {
+        "enrolledAt": "2026-04-06T09:15:00",
+        "status": true,
+        "completedAt": null,
+        "isPaid": true,
+        "user": {
+          "userId": 4
+        },
+        "course": {
+          "courseId": 2
+        }
+      },
+      {
+        "enrolledAt": "2026-04-06T09:30:00",
+        "status": true,
+        "completedAt": "2026-04-20T18:30:00",
+        "isPaid": false,
+        "user": {
+          "userId": 3
+        },
+        "course": {
+          "courseId": 3
+        }
+      },
+      {
+        "enrolledAt": "2026-04-06T10:00:00",
+        "status": false,
+        "completedAt": null,
+        "isPaid": false,
+        "user": {
+          "userId": 4
+        },
+        "course": {
+          "courseId": 4
+        }
+      },
+      {
+        "enrolledAt": "2026-04-06T10:20:00",
+        "status": true,
+        "completedAt": null,
+        "isPaid": true,
+        "user": {
+          "userId": 3
+        },
+        "course": {
+          "courseId": 5
+        }
+      }
+    ],
+    "CourseReviews": [
+      {
+        "reviewText": "Very clear explanations and practical examples.",
+        "rating": 4.5,
+        "user": {
+          "userId": 3
+        },
+        "course": {
+          "courseId": 1
+        }
+      },
+      {
+        "reviewText": "The React section was easy to follow.",
+        "rating": 4.0,
+        "user": {
+          "userId": 4
+        },
+        "course": {
+          "courseId": 2
+        }
+      },
+      {
+        "reviewText": "Great coverage of data cleaning workflows.",
+        "rating": 5.0,
+        "user": {
+          "userId": 3
+        },
+        "course": {
+          "courseId": 3
+        }
+      },
+      {
+        "reviewText": "Good beginner content, but I wanted more advanced examples.",
+        "rating": 3.5,
+        "user": {
+          "userId": 4
+        },
+        "course": {
+          "courseId": 4
+        }
+      },
+      {
+        "reviewText": "Compact and useful CI/CD introduction.",
+        "rating": 4.2,
+        "user": {
+          "userId": 3
+        },
+        "course": {
+          "courseId": 5
+        }
+      }
+    ],
+    "LessonProgress": [
+      {
+        "isCompleted": true,
+        "completedAt": "2026-04-08T14:00:00",
+        "enrollment": {
+          "enrollmentId": 1
+        },
+        "lesson": {
+          "lessonId": 1
+        }
+      },
+      {
+        "isCompleted": true,
+        "completedAt": "2026-04-09T11:30:00",
+        "enrollment": {
+          "enrollmentId": 2
+        },
+        "lesson": {
+          "lessonId": 2
+        }
+      },
+      {
+        "isCompleted": false,
+        "completedAt": null,
+        "enrollment": {
+          "enrollmentId": 3
+        },
+        "lesson": {
+          "lessonId": 3
+        }
+      },
+      {
+        "isCompleted": false,
+        "completedAt": null,
+        "enrollment": {
+          "enrollmentId": 4
+        },
+        "lesson": {
+          "lessonId": 4
+        }
+      },
+      {
+        "isCompleted": true,
+        "completedAt": "2026-04-10T16:45:00",
+        "enrollment": {
+          "enrollmentId": 5
+        },
+        "lesson": {
+          "lessonId": 5
+        }
+      }
+    ],
+    "QuizAttempts": [
+      {
+        "score": 18,
+        "enrollment": {
+          "enrollmentId": 1
+        },
+        "quiz": {
+          "quizId": 1
+        }
+      },
+      {
+        "score": 12,
+        "enrollment": {
+          "enrollmentId": 2
+        },
+        "quiz": {
+          "quizId": 2
+        }
+      },
+      {
+        "score": 23,
+        "enrollment": {
+          "enrollmentId": 3
+        },
+        "quiz": {
+          "quizId": 3
+        }
+      },
+      {
+        "score": 10,
+        "enrollment": {
+          "enrollmentId": 4
+        },
+        "quiz": {
+          "quizId": 4
+        }
+      },
+      {
+        "score": 19,
+        "enrollment": {
+          "enrollmentId": 5
+        },
+        "quiz": {
+          "quizId": 5
+        }
+      }
+    ],
+    "Certificates": [
+      {
+        "certificateDir": "certificates/user3-course1.pdf",
+        "enrollment": {
+          "enrollmentId": 1
+        }
+      },
+      {
+        "certificateDir": "certificates/user4-course2.pdf",
+        "enrollment": {
+          "enrollmentId": 2
+        }
+      },
+      {
+        "certificateDir": "certificates/user3-course3.pdf",
+        "enrollment": {
+          "enrollmentId": 3
+        }
+      },
+      {
+        "certificateDir": "certificates/user4-course4.pdf",
+        "enrollment": {
+          "enrollmentId": 4
+        }
+      },
+      {
+        "certificateDir": "certificates/user3-course5.pdf",
+        "enrollment": {
+          "enrollmentId": 5
+        }
+      }
+    ]
+  }
+}
