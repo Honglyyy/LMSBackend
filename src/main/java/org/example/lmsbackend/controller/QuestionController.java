@@ -38,7 +38,7 @@ public class QuestionController {
 
     @DeleteMapping("/api/questions/{id}")
     public ResponseEntity<String> deleteQuestion(@PathVariable Long id){
-        questionService.deleteQuiz(id);
+        questionService.deleteQuestion(id);
         return new ResponseEntity<>("Question id " + id + " is now deleted!!", HttpStatus.OK );
     }
 }

@@ -35,40 +35,6 @@ public class SectionService {
                 .toList();
     }
 
-    public SectionDetailDTO getSection(Long id){
-        Sections section = sectionRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Section id " + id + " not found"));
-
-        return toSectionDetailDto(section);
-    }
-    public CourseDetailDTO getSectionByCourseId(Long courseId){
-        Courses course = courseRepository.findById(courseId)
-                .orElseThrow(() -> new RuntimeException("Course id " + courseId + " not found"));
-
-        List<SectionDetailDTO> sections = sectionRepository.findByCourse_CourseId(courseId)
-                .stream()
-                .map(this::toSectionDetailDto)
-                .toList();
-
-        List<String> categories = course.getCategories()
-                .stream()
-                .map(Categories::getCategory)
-                .toList();
-
-
-        return new CourseDetailDTO(
-                course.getCourseId(),
-                course.getTitle(),
-                course.getDescription(),
-                course.getPrice(),
-                course.getOverallDuration(),
-                course.getCoverDir(),
-                course.getInstructorId().getUsername(),
-                categories,
-                sections
-        );
-    }
-
     public SectionResponseDTO addSection(SectionCreateDTO dto) {
         Sections section = new Sections();
 
@@ -99,28 +65,26 @@ public class SectionService {
         sectionRepository.deleteById(id);
     }
 
-    private SectionDetailDTO toSectionDetailDto(Sections section) {
 
-        List<LessonDetailDTO> lessons = lessonRepository.findBySections_SectionId(section.getSectionId())
-                .stream()
-                .map(lesson -> new LessonDetailDTO(
-                        lesson.getLessonId(),
-                        lesson.getTitle(),
-                        lesson.getVideoDir(),
-                        quizRepository.findByLesson_LessonId(lesson.getLessonId())
-                        .stream().map(quiz -> new QuizDetailDTO(
-                                quiz.getQuizId(),
-                                quiz.getQuizTitle(),
-                                quiz.getTotalPoint()
-                                )).toList()
-                ))
-                .toList();
 
-        return new SectionDetailDTO(
-                section.getSectionId(),
-                section.getTitle(),
-                section.getDuration(),
-                lessons
-        );
-    }
+//    public SectionDetailDTO getSection(Long id){
+//        Sections section = sectionRepository.findById(id)
+//                .orElseThrow(() -> new RuntimeException("Section id " + id + " not found"));
+//
+//        List<LessonDetailDTO> lessonDetailDTOS = lessonRepository.findBySections_SectionId(id)
+//                .stream()
+//                .map(lesson -> new LessonDetailDTO(
+//                        lesson.getLessonId(),
+//                        lesson.getTitle(),
+//                        lesson.getVideoDir()
+//                )).toList();
+//
+//        return new SectionDetailDTO(
+//                section.getSectionId(),
+//                section.getTitle(),
+//                section.getDuration(),
+//                (long) lessonDetailDTOS.size(),
+//                lessonDetailDTOS
+//        );
+//    }
 }

@@ -34,7 +34,7 @@ public class QuizController {
             @PathVariable Long id,
             @RequestBody QuizCreateDTO dto
     ){
-        return new ResponseEntity<>(quizService.updateQuiz(id,dto), HttpStatus.CREATED);
+        return new ResponseEntity<>(quizService.updateQuiz(id,dto), HttpStatus.OK);
     }
 
     @DeleteMapping("/api/quizzes/{id}")

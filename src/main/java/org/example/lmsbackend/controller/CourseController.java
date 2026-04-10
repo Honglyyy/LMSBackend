@@ -3,7 +3,6 @@ package org.example.lmsbackend.controller;
 import org.example.lmsbackend.dto.CourseCreateDTO;
 import org.example.lmsbackend.dto.CourseDetailDTO;
 import org.example.lmsbackend.dto.CourseResponseDTO;
-import org.example.lmsbackend.dto.SectionDTO;
 import org.example.lmsbackend.service.CourseService;
 import org.example.lmsbackend.service.SectionService;
 import org.springframework.http.HttpStatus;
@@ -28,11 +27,6 @@ public class CourseController {
         return new ResponseEntity<>(courseService.getAllCourses(), HttpStatus.OK);
     }
 
-    @GetMapping("/api/courses/{id}")
-    public ResponseEntity<CourseResponseDTO> getCourse(@PathVariable Long id){
-        return new ResponseEntity<>(courseService.getCourse(id),HttpStatus.OK);
-    }
-
     @PostMapping("/api/courses")
     public ResponseEntity<CourseResponseDTO> createCourse(@RequestBody CourseCreateDTO dto){
         return new ResponseEntity<>(courseService.addCourse(dto),HttpStatus.CREATED);
@@ -44,7 +38,7 @@ public class CourseController {
         return new ResponseEntity<>("Course id " + id + " has now deleted!!", HttpStatus.OK);
     }
 
-    @PutMapping("api/courses/{id}")
+    @PutMapping("/api/courses/{id}")
     public ResponseEntity<CourseResponseDTO> updateCourse(
             @PathVariable Long id,
             @RequestBody CourseCreateDTO dto
@@ -52,10 +46,10 @@ public class CourseController {
         return ResponseEntity.ok(courseService.updateCourse(id, dto));
     }
 
-    @GetMapping("/api/courses/{id}/sections")
+    @GetMapping("/api/courses/{id}")
     public ResponseEntity<CourseDetailDTO> getSectionByCourseId(
             @PathVariable Long id
     ){
-        return new ResponseEntity<>(sectionService.getSectionByCourseId(id), HttpStatus.OK);
+        return new ResponseEntity<>(courseService.getCourseDetail(id), HttpStatus.OK);
     }
 }

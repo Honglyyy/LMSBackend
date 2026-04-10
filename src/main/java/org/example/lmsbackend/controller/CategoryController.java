@@ -1,5 +1,6 @@
 package org.example.lmsbackend.controller;
 
+import org.example.lmsbackend.dto.CategoryDetailDTO;
 import org.example.lmsbackend.model.Categories;
 import org.example.lmsbackend.service.CategoryService;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,7 @@ public class CategoryController {
     }
 
     @GetMapping("/api/categories/{id}")
-    public ResponseEntity<Categories> getCategory(@PathVariable Long id){
+    public ResponseEntity<CategoryDetailDTO> getCategory(@PathVariable Long id){
         return new ResponseEntity<>(categoryService.getCategory(id),HttpStatus.OK);
     }
 

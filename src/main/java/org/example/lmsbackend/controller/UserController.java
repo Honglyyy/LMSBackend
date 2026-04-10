@@ -1,6 +1,5 @@
 package org.example.lmsbackend.controller;
 
-import jakarta.annotation.Nullable;
 import org.example.lmsbackend.dto.UserCreateDTO;
 import org.example.lmsbackend.dto.UserResponseDTO;
 import org.example.lmsbackend.service.UserService;
@@ -10,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 public class UserController {
 
@@ -20,7 +20,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @RequestMapping("/api/users")
+    @GetMapping("/api/users")
     public ResponseEntity<List<UserResponseDTO>> getAllUsers(){
         return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
     }
@@ -30,7 +30,7 @@ public class UserController {
         return new ResponseEntity<>(userService.getUser(id), HttpStatus.OK);
     }
 
-    @PostMapping("api/users")
+    @PostMapping("/api/users")
     public ResponseEntity<UserResponseDTO> createUser(@RequestBody UserCreateDTO dto){
         return new ResponseEntity<>(userService.addUser(dto),HttpStatus.CREATED);
     }

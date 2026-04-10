@@ -1,11 +1,9 @@
 package org.example.lmsbackend.service;
 
-import org.example.lmsbackend.dto.LessonCreateDTO;
-import org.example.lmsbackend.dto.LessonDetailDTO;
-import org.example.lmsbackend.dto.LessonResponseDTO;
-import org.example.lmsbackend.dto.QuizDetailDTO;
+import org.example.lmsbackend.dto.*;
 import org.example.lmsbackend.mapper.LessonMapper;
 import org.example.lmsbackend.model.Lessons;
+import org.example.lmsbackend.model.Questions;
 import org.example.lmsbackend.model.Quizzes;
 import org.example.lmsbackend.model.Sections;
 import org.example.lmsbackend.repository.LessonRepository;
@@ -29,32 +27,25 @@ public class LessonService {
         this.quizRepository = quizRepository;
     }
 
-    public List<LessonResponseDTO> getLessons(){
+    public List<LessonResponseDTO> getLessons() {
         return lessonRepository.findAll()
                 .stream()
                 .map(lessonMapper::toDto)
                 .toList();
     }
 
-    public LessonDetailDTO getLesson(Long id){
-        Lessons lesson = lessonRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Lesson not found"));
 
-        return toDetailDTO(lesson);
-    }
-
-
-    public LessonResponseDTO addLesson(LessonCreateDTO dto){
+    public LessonResponseDTO addLesson(LessonCreateDTO dto) {
         Lessons lesson = new Lessons();
 
         Sections section = sectionRepository.findById(dto.sectionId()).orElse(null);
 
-        lesson = lessonMapper.toEntity(dto,section);
+        lesson = lessonMapper.toEntity(dto, section);
 
         return lessonMapper.toDto(lessonRepository.save(lesson));
     }
 
-    public LessonResponseDTO updateLesson(Long id,LessonCreateDTO dto){
+    public LessonResponseDTO updateLesson(Long id, LessonCreateDTO dto) {
         Lessons existingLesson = lessonRepository.findById(id).orElse(null);
 
         Sections sectionId = sectionRepository.findById(dto.sectionId()).orElse(null);
@@ -63,26 +54,42 @@ public class LessonService {
         existingLesson.setVideoDir(dto.videoDir());
         existingLesson.setSections(sectionId);
 
-        return lessonMapper.toDto(existingLesson);
+        return lessonMapper.toDto(lessonRepository.save(existingLesson));
     }
 
-    public void deleteSection(Long id){
-        sectionRepository.deleteById(id);
+    public void deleteLesson(Long id) {
+        lessonRepository.deleteById(id);
     }
 
-    public LessonDetailDTO toDetailDTO(Lessons lesson){
-        List<QuizDetailDTO> quizzes = quizRepository.findByLesson_LessonId(lesson.getLessonId())
+    public LessonQuizDTO getLesson(Long lessonId){
+        Lessons lessons = lessonRepository.findById(lessonId)
+                .orElseThrow(() -> new RuntimeException("Lesson not found"));
+
+        List<QuizDetailDTO> quizzes = quizRepository.findByLesson_LessonId(lessonId)
                 .stream()
                 .map(quiz -> new QuizDetailDTO(
                         quiz.getQuizId(),
                         quiz.getQuizTitle(),
-                        quiz.getTotalPoint()
-                )).toList();
+                        quiz.getTotalPoint(),
+                        quiz.getQuestions().stream()
+                                .map(question -> new QuestionDetailDTO(
+                                        question.getQuestionId(),
+                                        question.getQuestionText(),
+                                        question.getPoint(),
+                                        question.getAnswers().stream()
+                                                .map(answer -> new AnswerDetailDTO(
+                                                        answer.getAnswerId(),
+                                                        answer.getAnswerText(),
+                                                        answer.getIsCorrect()
+                                                )).toList()
+                                )).toList()
+                        )
+                ).toList();
 
-        return new LessonDetailDTO(
-                lesson.getLessonId(),
-                lesson.getTitle(),
-                lesson.getVideoDir(),
+        return new LessonQuizDTO(
+                lessons.getLessonId(),
+                lessons.getTitle(),
+                lessons.getVideoDir(),
                 quizzes
         );
     }

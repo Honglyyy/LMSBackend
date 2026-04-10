@@ -1,0 +1,56 @@
+package org.example.lmsbackend.service;
+
+import org.example.lmsbackend.dto.AnswerCreateDTO;
+import org.example.lmsbackend.dto.AnswerDetailDTO;
+import org.example.lmsbackend.dto.AnswerResponseDTO;
+import org.example.lmsbackend.mapper.AnswerMapper;
+import org.example.lmsbackend.model.Answers;
+import org.example.lmsbackend.model.Questions;
+import org.example.lmsbackend.model.Quizzes;
+import org.example.lmsbackend.repository.AnswerRepository;
+import org.example.lmsbackend.repository.QuestionRepository;
+import org.springframework.stereotype.Service;
+
+@Service
+public class AnswerService {
+
+    private final AnswerRepository answerRepository;
+    private final QuestionRepository questionRepository;
+    private final AnswerMapper answerMapper;
+
+    public AnswerService(AnswerRepository answerRepository, QuestionRepository questionRepository, AnswerMapper answerMapper) {
+        this.answerRepository = answerRepository;
+        this.questionRepository = questionRepository;
+        this.answerMapper = answerMapper;
+    }
+
+    public AnswerResponseDTO addAnswer(AnswerCreateDTO dto){
+        Questions question = questionRepository.findById(dto.questionId())
+                .orElseThrow(() -> new RuntimeException("Question id " + dto.questionId() + " is now found!!"));
+
+        Answers answers = answerMapper.toEntity(dto, question);
+
+        return answerMapper.toDto(answerRepository.save(answers));
+    }
+
+    public Answers updateAnswer(
+            Long id,
+            AnswerCreateDTO dto
+    ){
+        Answers existingAnswer = answerRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Answer id " + id + " is now found!!"));
+
+        existingAnswer.setAnswerText(dto.answerText());
+        existingAnswer.setIsCorrect(dto.isCorrect());
+        existingAnswer.setQuestion(questionRepository.findById(dto.questionId())
+                .orElseThrow(() -> new RuntimeException("Question id " + dto.questionId() + " is now found!!")));
+
+        return answerRepository.save(existingAnswer);
+    }
+
+    public void deleteAnswer(Long id){
+        answerRepository.deleteById(id);
+    }
+
+
+}

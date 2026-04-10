@@ -1,6 +1,7 @@
 package org.example.lmsbackend.mapper;
 
 import org.example.lmsbackend.dto.SectionCreateDTO;
+import org.example.lmsbackend.dto.SectionDetailDTO;
 import org.example.lmsbackend.dto.SectionResponseDTO;
 import org.example.lmsbackend.model.Categories;
 import org.example.lmsbackend.model.Courses;

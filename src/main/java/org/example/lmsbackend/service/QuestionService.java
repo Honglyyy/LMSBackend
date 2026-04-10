@@ -53,7 +53,7 @@ public class QuestionService {
         return questionMapper.toDto(questionRepository.save(existingQuestion));
     }
 
-    public void deleteQuiz(Long id){
+    public void deleteQuestion(Long id){
         questionRepository.deleteById(id);
     }
 }

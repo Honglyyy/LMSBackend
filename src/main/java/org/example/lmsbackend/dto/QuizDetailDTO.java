@@ -1,8 +1,11 @@
 package org.example.lmsbackend.dto;
 
+import java.util.List;
+
 public record QuizDetailDTO(
         Long quizId,
         String title,
-        double totalPoints
+        double totalPoints,
+        List<QuestionDetailDTO> question
 ) {
 }

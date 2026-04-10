@@ -1,13 +1,15 @@
 package org.example.lmsbackend.service;
 
-import org.example.lmsbackend.dto.CourseCreateDTO;
-import org.example.lmsbackend.dto.CourseResponseDTO;
+import org.example.lmsbackend.dto.*;
 import org.example.lmsbackend.mapper.CourseMapper;
+import org.example.lmsbackend.mapper.SectionMapper;
 import org.example.lmsbackend.model.Categories;
 import org.example.lmsbackend.model.Courses;
+import org.example.lmsbackend.model.Sections;
 import org.example.lmsbackend.model.Users;
 import org.example.lmsbackend.repository.CategoryRepository;
 import org.example.lmsbackend.repository.CourseRepository;
+import org.example.lmsbackend.repository.SectionRepository;
 import org.example.lmsbackend.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -20,12 +22,16 @@ public class CourseService {
     private final CourseMapper courseMapper;
     private final CategoryRepository categoryRepository;
     private final UserRepository userRepository;
+    private final SectionRepository sectionRepository;
+    private final SectionMapper sectionMapper;
 
-    public CourseService(CourseRepository courseRepository, CourseMapper courseMapper, CategoryRepository categoryRepository, UserRepository userRepository) {
+    public CourseService(CourseRepository courseRepository, CourseMapper courseMapper, CategoryRepository categoryRepository, UserRepository userRepository, SectionRepository sectionRepository, SectionMapper sectionMapper) {
         this.courseRepository = courseRepository;
         this.categoryRepository = categoryRepository;
         this.courseMapper = courseMapper;
         this.userRepository = userRepository;
+        this.sectionRepository = sectionRepository;
+        this.sectionMapper = sectionMapper;
     }
 
     public List<CourseResponseDTO> getAllCourses(){
@@ -35,10 +41,6 @@ public class CourseService {
                 .toList();
     }
 
-    public CourseResponseDTO getCourse(Long id){
-        return courseMapper.toDTO(courseRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Course id " + id +" is not found!!")));
-    }
 
     public CourseResponseDTO addCourse(CourseCreateDTO dto){
         Users instructor = userRepository.findById(dto.instructorId())
@@ -73,5 +75,46 @@ public class CourseService {
         existingCourse.setCategories(categories);
 
         return courseMapper.toDTO(courseRepository.save(existingCourse));
+    }
+
+    public CourseDetailDTO getCourseDetail(Long courseId) {
+        Courses course = courseRepository.findById(courseId)
+                .orElseThrow(() -> new RuntimeException("Course id " + courseId + " not found"));
+
+        List<SectionDetailDTO> sectionsDetail = sectionRepository.findByCourse_CourseId(courseId)
+                .stream()
+                .map(sections -> new SectionDetailDTO(
+                    sections.getSectionId(),
+                    sections.getTitle(),
+                    sections.getDuration(),
+                    (long) sections.getLessons().size(),
+                    sections.getLessons().stream()
+                            .map(lessons -> new LessonDetailDTO(
+                                    lessons.getLessonId(),
+                                    lessons.getTitle(),
+                                    lessons.getVideoDir()
+                            ))
+                            .toList()
+                ))
+                .toList();
+
+        List<String> categories = course.getCategories()
+                .stream()
+                .map(Categories::getCategory)
+                .toList();
+
+
+        return new CourseDetailDTO(
+                course.getCourseId(),
+                course.getTitle(),
+                course.getDescription(),
+                course.getPrice(),
+                course.getOverallDuration(),
+                course.getCoverDir(),
+                course.getInstructorId().getUsername(),
+                (long) course.getSections().size(),
+                categories,
+                sectionsDetail
+        );
     }
 }

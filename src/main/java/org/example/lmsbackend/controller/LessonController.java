@@ -1,7 +1,7 @@
 package org.example.lmsbackend.controller;
 
 import org.example.lmsbackend.dto.LessonCreateDTO;
-import org.example.lmsbackend.dto.LessonDetailDTO;
+import org.example.lmsbackend.dto.LessonQuizDTO;
 import org.example.lmsbackend.dto.LessonResponseDTO;
 import org.example.lmsbackend.service.LessonService;
 import org.springframework.http.HttpStatus;
@@ -26,7 +26,7 @@ public class LessonController {
     }
 
     @GetMapping("/api/lessons/{id}")
-    public ResponseEntity<LessonDetailDTO> getLesson(@PathVariable Long id){
+    public ResponseEntity<LessonQuizDTO> getLesson(@PathVariable Long id){
         return new ResponseEntity<>(lessonService.getLesson(id), HttpStatus.OK);
     }
 
@@ -40,12 +40,12 @@ public class LessonController {
             @PathVariable Long id,
             @RequestBody LessonCreateDTO dto
     ){
-        return new ResponseEntity<>(lessonService.updateLesson(id,dto), HttpStatus.CREATED);
+        return new ResponseEntity<>(lessonService.updateLesson(id,dto), HttpStatus.OK);
     }
 
     @DeleteMapping("/api/lessons/{id}")
     public ResponseEntity<String> deleteLesson(@PathVariable Long id){
-        lessonService.deleteSection(id);
+        lessonService.deleteLesson(id);
         return new ResponseEntity<>("Lesson id " + id + " has now deleted!!", HttpStatus.OK);
     }
 }

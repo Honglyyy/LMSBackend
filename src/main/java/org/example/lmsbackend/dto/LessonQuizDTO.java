@@ -2,9 +2,10 @@ package org.example.lmsbackend.dto;
 
 import java.util.List;
 
-public record LessonDetailDTO(
+public record LessonQuizDTO(
         Long lessonId,
         String title,
-        String videoDir
+        String videoDir,
+        List<QuizDetailDTO> quizz
 ) {
 }

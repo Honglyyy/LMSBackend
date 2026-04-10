@@ -25,6 +25,8 @@ public class Questions {
     @Column(name = "question_text")
     private String questionText;
 
+    private Long point;
+
     @ManyToOne
     @JoinColumn(name = "quiz_id")
     private Quizzes quiz;
