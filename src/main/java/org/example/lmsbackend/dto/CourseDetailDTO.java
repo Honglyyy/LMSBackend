@@ -11,7 +11,9 @@ public record CourseDetailDTO(
         String coverDir,
         String instructor,
         Long sectionCount,
+        Double rating,
         List<String> categories,
-        List<SectionDetailDTO> sections
+        List<SectionDetailDTO> sections,
+        List<CourseReviewResponseDTO> reviews
 ) {
 }

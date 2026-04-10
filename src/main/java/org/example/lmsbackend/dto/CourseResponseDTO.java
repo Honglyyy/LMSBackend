@@ -12,6 +12,7 @@ public record CourseResponseDTO(
         String overallDuration,
         String coverDir,
         String instructor,
-        List<String> categories
+        List<String> categories,
+        Double rating
 ) {
 }

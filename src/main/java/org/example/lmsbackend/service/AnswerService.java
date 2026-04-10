@@ -1,12 +1,10 @@
 package org.example.lmsbackend.service;
 
 import org.example.lmsbackend.dto.AnswerCreateDTO;
-import org.example.lmsbackend.dto.AnswerDetailDTO;
 import org.example.lmsbackend.dto.AnswerResponseDTO;
 import org.example.lmsbackend.mapper.AnswerMapper;
 import org.example.lmsbackend.model.Answers;
 import org.example.lmsbackend.model.Questions;
-import org.example.lmsbackend.model.Quizzes;
 import org.example.lmsbackend.repository.AnswerRepository;
 import org.example.lmsbackend.repository.QuestionRepository;
 import org.springframework.stereotype.Service;

@@ -7,10 +7,7 @@ import org.example.lmsbackend.model.Categories;
 import org.example.lmsbackend.model.Courses;
 import org.example.lmsbackend.model.Sections;
 import org.example.lmsbackend.model.Users;
-import org.example.lmsbackend.repository.CategoryRepository;
-import org.example.lmsbackend.repository.CourseRepository;
-import org.example.lmsbackend.repository.SectionRepository;
-import org.example.lmsbackend.repository.UserRepository;
+import org.example.lmsbackend.repository.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,14 +21,16 @@ public class CourseService {
     private final UserRepository userRepository;
     private final SectionRepository sectionRepository;
     private final SectionMapper sectionMapper;
+    private final CourseReviewRepository courseReviewRepository;
 
-    public CourseService(CourseRepository courseRepository, CourseMapper courseMapper, CategoryRepository categoryRepository, UserRepository userRepository, SectionRepository sectionRepository, SectionMapper sectionMapper) {
+    public CourseService(CourseRepository courseRepository, CourseMapper courseMapper, CategoryRepository categoryRepository, UserRepository userRepository, SectionRepository sectionRepository, SectionMapper sectionMapper, CourseReviewRepository courseReviewRepository) {
         this.courseRepository = courseRepository;
         this.categoryRepository = categoryRepository;
         this.courseMapper = courseMapper;
         this.userRepository = userRepository;
         this.sectionRepository = sectionRepository;
         this.sectionMapper = sectionMapper;
+        this.courseReviewRepository = courseReviewRepository;
     }
 
     public List<CourseResponseDTO> getAllCourses(){
@@ -104,6 +103,22 @@ public class CourseService {
                 .toList();
 
 
+        List<CourseReviewResponseDTO> reviews = courseReviewRepository.findByCourse_CourseId(courseId)
+                .stream()
+                .map(review -> new CourseReviewResponseDTO(
+                        review.getReviewId(),
+                        review.getReviewText(),
+                        review.getRating(),
+                        review.getUser().getUsername(),
+                        review.getCourse().getTitle()
+                ))
+                .toList();
+
+        Double rating = courseReviewRepository.findByCourse_CourseId(course.getCourseId())
+                .stream()
+                .mapToDouble(rate -> rate.getRating())
+                .average().orElse(5);
+
         return new CourseDetailDTO(
                 course.getCourseId(),
                 course.getTitle(),
@@ -113,8 +128,10 @@ public class CourseService {
                 course.getCoverDir(),
                 course.getInstructorId().getUsername(),
                 (long) course.getSections().size(),
+                rating,
                 categories,
-                sectionsDetail
+                sectionsDetail,
+                reviews
         );
     }
 }
