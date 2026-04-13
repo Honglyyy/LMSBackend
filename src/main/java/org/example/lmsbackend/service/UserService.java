@@ -55,6 +55,7 @@ public class UserService {
         return new UserEnrolledDTO(
                 user.getUserId(),
                 user.getUsername(),
+                user.getEmail(),
                 enrollmentUserDTOS
         );
     }
