@@ -35,6 +35,6 @@ public class Quizzes {
     @OneToMany(mappedBy = "quiz")
     private List<Questions> questions;
 
-    @OneToMany(mappedBy = "quiz")
-    private List<QuizAttempts> quizAttempts;
+//    @OneToMany(mappedBy = "quiz")
+//    private List<QuizAttempts> quizAttempts;
 }

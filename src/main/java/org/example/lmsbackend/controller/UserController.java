@@ -1,6 +1,7 @@
 package org.example.lmsbackend.controller;
 
 import org.example.lmsbackend.dto.UserCreateDTO;
+import org.example.lmsbackend.dto.UserEnrolledDTO;
 import org.example.lmsbackend.dto.UserResponseDTO;
 import org.example.lmsbackend.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -26,7 +27,7 @@ public class UserController {
     }
 
     @GetMapping("/api/users/{id}")
-    public ResponseEntity<UserResponseDTO> getUser(@PathVariable Long id){
+    public ResponseEntity<UserEnrolledDTO> getUser(@PathVariable Long id){
         return new ResponseEntity<>(userService.getUser(id), HttpStatus.OK);
     }
 

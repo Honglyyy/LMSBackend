@@ -37,8 +37,8 @@ public class Lessons {
     @JoinColumn(name = "section_id")
     private Sections sections;
 
-    @OneToMany(mappedBy = "lesson")
-    private List<LessonProgress> lessonProgress;
+//    @OneToMany(mappedBy = "lesson")
+//    private List<LessonProgress> lessonProgress;
 
     @OneToOne(mappedBy = "lesson")
     private Quizzes quiz;

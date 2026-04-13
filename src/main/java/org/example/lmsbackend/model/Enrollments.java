@@ -3,6 +3,7 @@ package org.example.lmsbackend.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -23,9 +24,10 @@ public class Enrollments {
     private Long enrollmentId;
 
     @Column(name = "enrolled_at")
+    @CreationTimestamp
     private LocalDateTime enrolledAt;
 
-    private Boolean status;
+//    private Boolean status;
 
     @Column(name = "completed_at")
     private LocalDateTime completedAt;
@@ -40,11 +42,11 @@ public class Enrollments {
     @JoinColumn(name = "course_id")
     private Courses course;
 
-    @OneToMany(mappedBy = "enrollment")
-    private List<QuizAttempts> quizAttempts;
-
-    @OneToMany(mappedBy = "enrollment")
-    private List<LessonProgress> lessonProgress;
+//    @OneToMany(mappedBy = "enrollment")
+//    private List<QuizAttempts> quizAttempts;
+//
+//    @OneToMany(mappedBy = "enrollment")
+//    private List<LessonProgress> lessonProgress;
 
     @OneToMany(mappedBy = "enrollment")
     private List<Certificates> certificates;
